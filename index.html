@@ -14,16 +14,21 @@
             color: #fff;
             text-align: center;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .greetings {
-            font-size: 6rem;
+            font-size: clamp(2.5rem, 8vw, 6rem);
             margin-top: 40px;
+            font-weight: bold;
         }
 
         .description {
             margin-top: 20px;
-            font-size: 1.8rem;
+            font-size: clamp(1rem, 4vw, 1.8rem);
+            padding: 0 20px;
+            line-height: 1.4;
         }
 
         .button {
@@ -32,26 +37,46 @@
 
         .botones {
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 25px;
             font-size: 1rem;
             cursor: pointer;
+            background-color: #0a2be9;
+            transition: 0.3s ease;
         }
+
+
 
         .botones a {
             text-decoration: none;
             color: #fff;
+            font-weight: bold;
         }
 
         .video {
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         .video video {
-            width: 80%;
+            width: 90%;
             max-width: 500px;
             border-radius: 15px;
             box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive extra */
+        @media screen and (max-width: 480px) {
+            .greetings {
+                margin-top: 20px;
+            }
+
+            .description {
+                margin-top: 15px;
+            }
+
+            .button {
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
@@ -75,7 +100,7 @@
     </div>
 
     <div class="button">
-        <button class="botones">
+        <button class="botones" id="playBtn">
             <a href="flower.html">CLICK AQUÍ</a>
         </button>
     </div>
@@ -87,5 +112,18 @@
         </video>
     </div>
 
+    <!-- Música que se activará en el click -->
+    <audio id="bgMusic" loop>
+        <source src="music/romantica.mp3" type="audio/mp3">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <script>
+        // En móviles el audio necesita interacción directa
+        document.getElementById("playBtn").addEventListener("click", () => {
+            const music = document.getElementById("bgMusic");
+            music.play().catch(err => console.log("El navegador bloqueó el autoplay:", err));
+        });
+    </script>
 </body>
 </html>
