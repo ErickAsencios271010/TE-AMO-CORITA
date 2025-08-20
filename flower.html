@@ -328,5 +328,20 @@
     </div>
     <script src="anim.js"></script>
     <script src="main.js"></script>
+    <script>
+    const song = document.getElementById("loveSong");
+
+    // Intentar reproducir de inmediato (funciona en laptop y en móviles si el navegador lo permite)
+    song.play().catch(() => {
+      console.log("El navegador bloqueó el autoplay, esperando interacción...");
+    });
+
+    // Asegurar que con el primer toque en la pantalla se active
+    document.addEventListener("click", () => {
+      if (song.paused) {
+        song.play();
+      }
+    }, { once: true });
+  </script>
   </body>
 </html>
