@@ -7,12 +7,37 @@
     <link rel="stylesheet" href="css/main.css" />
     <link rel="icon" href="img/flowers.png" type="image/x-icon" />
     <title>Flower</title>
+  <style>
+      /* Botón solo visible en móviles */
+      #playBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ffcc00;
+        color: #000;
+        padding: 12px 20px;
+        border-radius: 25px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+
+      @media (max-width: 768px) {
+        #playBtn {
+          display: block;
+        }
+      }
+    </style>
   </head>
   <body class="container">
-    <audio src="sound/wwd.mp3juice.blog - Estaba aquí pensando - La Repandilla x Aneley (Video Oficial) (320 KBps).mp3" autoplay></audio>
-    <div id="lyrics">
-     
-    </div>
+    <audio id="loveSong" src="sound/wwd.mp3juice.blog - Estaba aquí pensando - La Repandilla x Aneley (Video Oficial) (320 KBps).mp3"></audio>
+
+    <!-- Botón solo para móviles -->
+    <button id="playBtn">🎵 Reproducir Música</button>
     <h1 class="titulo">Estas flores amarillas son un reflejo de la alegría que traes a mi vida. <br> <br>
       Estoy completamente enamorado de ti… no existe nadie más, porque todo lo que siento es solo para ti. 🌹</h1>
   
@@ -329,14 +354,19 @@
     <script src="anim.js"></script>
     <script src="main.js"></script>
     <script>
-    // Ver si se estaba reproduciendo música
-    if (localStorage.getItem("musicPlaying") === "true") {
-      const audio = new Audio("sound/wwd.mp3");
-      audio.loop = true;
-      audio.play().catch(err => {
-        console.log("El navegador bloqueó el autoplay:", err);
+      const song = document.getElementById("loveSong");
+      const playBtn = document.getElementById("playBtn");
+
+      // En PC intenta reproducir automáticamente
+      song.play().catch(() => {
+        console.log("Autoplay bloqueado, esperando interacción...");
       });
-    }
-  </script>
+
+      // En móviles: botón reproduce y oculta
+      playBtn.addEventListener("click", () => {
+        song.play();
+        playBtn.style.display = "none";
+      });
+    </script>
   </body>
 </html>
