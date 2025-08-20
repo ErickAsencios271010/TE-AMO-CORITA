@@ -329,19 +329,14 @@
     <script src="anim.js"></script>
     <script src="main.js"></script>
     <script>
-    const song = document.getElementById("loveSong");
-
-    // Intentar reproducir de inmediato (funciona en laptop y en móviles si el navegador lo permite)
-    song.play().catch(() => {
-      console.log("El navegador bloqueó el autoplay, esperando interacción...");
-    });
-
-    // Asegurar que con el primer toque en la pantalla se active
-    document.addEventListener("click", () => {
-      if (song.paused) {
-        song.play();
-      }
-    }, { once: true });
+    // Ver si se estaba reproduciendo música
+    if (localStorage.getItem("musicPlaying") === "true") {
+      const audio = new Audio("sound/wwd.mp3");
+      audio.loop = true;
+      audio.play().catch(err => {
+        console.log("El navegador bloqueó el autoplay:", err);
+      });
+    }
   </script>
   </body>
 </html>
